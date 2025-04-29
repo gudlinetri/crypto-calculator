@@ -1,0 +1,95 @@
+
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Крипто Калькулятор</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      color: #0066cc;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #result {
+      margin-top: 20px;
+      background: #e6f7ff;
+      padding: 15px;
+      border-left: 5px solid #0099cc;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Крипто Калькулятор</h2>
+  <label>Сума інвестиції ($):
+    <input type="number" id="investment" placeholder="Наприклад: 100">
+  </label>
+  <label>Ціна покупки:
+    <input type="number" id="buyPrice" value="0.000017" step="any">
+  </label>
+  <label>Поточна ціна:
+    <input type="number" id="currentPrice" value="0.0022" step="any">
+  </label>
+  <button onclick="calculateProfit()">Розрахувати</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateProfit() {
+      const investment = parseFloat(document.getElementById('investment').value);
+      const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+      const currentPrice = parseFloat(document.getElementById('currentPrice').value);
+      
+      if (isNaN(investment) || isNaN(buyPrice) || isNaN(currentPrice) || buyPrice <= 0) {
+        document.getElementById('result').innerHTML = '<strong>Будь ласка, введи коректні дані.</strong>';
+        return;
+      }
+
+      const coins = investment / buyPrice;
+      const currentValue = coins * currentPrice;
+      const profit = currentValue - investment;
+
+      document.getElementById('result').innerHTML = `
+        <strong>Куплено монет:</strong> ${coins.toFixed(2)}<br>
+        <strong>Поточна вартість:</strong> $${currentValue.toFixed(2)}<br>
+        <strong>Прибуток:</strong> $${profit.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
